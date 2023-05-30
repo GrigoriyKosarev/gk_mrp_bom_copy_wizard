@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="gk_copy_bom_wizard_view_form" model="ir.ui.view" >
+        <field name="name">gk.copy.bom.wizard.view.form</field>
+        <field name="model">gk.copy.bom.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="resource_bom_line_id" options="{'no_create': True}"/>
+                    <field name="resource_bom_line_ids" />
+                    <field name="bom_id"/>
+                </group>
+                <footer>
+                    <button name="action_copy"
+                            string="copy Bom"
+                            type="object"
+                            icon="fa-plus"
+                            class="btn-primary"
+                    />
+                    <button special="cancel" class="oe_link" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="gk_server_action_copy_bom_wizard" model="ir.actions.server">
+        <field name="name">Copy Bom</field>
+        <field name="model_id" ref="model_gk_copy_bom_wizard"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_open_wizard()
+        </field>
+    </record>
+
+    <record id="menu_create_partners_multi_wizard" model="ir.ui.menu">
+        <field name="name">Copy Bom</field>
+        <field name="parent_id" ref="mrp.menu_mrp_bom"/>
+        <field name="action" ref="gk_server_action_copy_bom_wizard"/>
+        <field name="sequence" eval="11"/>
+    </record>
+
+</odoo>

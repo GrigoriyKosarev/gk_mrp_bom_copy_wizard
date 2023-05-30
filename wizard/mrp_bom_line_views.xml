@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_mrp_bom_line_tree" model="ir.ui.view">
+        <field name="name">mrp.bom.line.tree</field>
+        <field name="model">mrp.bom.line</field>
+        <field name="arch" type="xml">
+            <tree string="Bill of Material Line" create="false">
+                <field name="product_id"/>
+                <field name="product_tmpl_id"/>
+                <field name="company_id"/>
+                <field name="product_qty"/>
+                <field name="product_uom_id"/>
+                <field name="product_uom_category_id"/>
+                <field name="bom_id"/>
+                <field name="parent_product_tmpl_id"/>
+                <field name="operation_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mrp_bom_line_list" model="ir.actions.act_window">
+        <field name="name">Bill of Material Line</field>
+        <field name="res_model">mrp.bom.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="gk_mrp_bom_copy_wizard.view_mrp_bom_line_tree"/>
+    </record>
+
+    <record id="action_from_bom_gk_mrp_bom_line_copy_wizard" model="ir.actions.server">
+        <field name="name">Copy Bom</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_gk_copy_bom_wizard"/>
+        <field name="binding_model_id" ref="mrp.model_mrp_bom_line"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_open_wizard()
+        </field>
+    </record>
+
+<!--    <record id="gk_mrp_bom_line_copy_act_window" model="ir.actions.act_window">-->
+<!--        <field name="name">Copy BOM Line</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="res_model">gk.copy.bom.wizard</field>-->
+<!--        <field name="view_mode">tree</field>-->
+<!--        <field name="binding_model_id" ref="mrp.model_mrp_bom_line"/>-->
+<!--&lt;!&ndash;        <field name="binding_model_id" ref="mrp.model_mrp_bom_line"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <field name="binding_model_id" ref="gk_mrp_bom_line_copy_wizard_server"/>&ndash;&gt;-->
+<!--        <field name="binding_view_types">list</field>-->
+<!--&lt;!&ndash;        <field name="action" ref="gk_mrp_bom_line_copy_wizard_server"/>&ndash;&gt;-->
+<!--    </record>-->
+
+    <menuitem id="mrp_bom_line_menu"
+              action="gk_mrp_bom_copy_wizard.view_mrp_bom_line_list"
+              name="Bill of Material Line"
+              parent="mrp.menu_mrp_manufacturing"
+              sequence="33"/>
+
+</odoo>
